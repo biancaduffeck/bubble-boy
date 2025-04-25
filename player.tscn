@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnjpgg1an1tg"]
+
+[ext_resource type="Script" uid="uid://datw3ufe6bdxy" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://bn5hbvvaob0vf" path="res://bubble-boy-arts/char A 1.png" id="2_i3pqv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"capture",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i3pqv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
+radius = 40.0
+height = 100.0
+
+[node name="player" type="Area2D"]
+script = ExtResource("1_onrkg")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-27.02, -21.59)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_hqtel")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sweqy")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

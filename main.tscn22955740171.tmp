@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://dibdsssnuxfnm"]
+
+[ext_resource type="Script" uid="uid://bukbfkh0ps2jj" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dwpor8ysmj7fj" path="res://enemy1.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bnjpgg1an1tg" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bfei5kn4prvxv" path="res://bubble-boy-arts/Chao.jpg" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://c3y0kpems5h4j" path="res://tilemap.tscn" id="5_lquwl"]
+[ext_resource type="Shader" uid="uid://b6wibmsmom18l" path="res://tile.gdshader" id="6_7mycd"]
+
+[sub_resource type="Curve2D" id="Curve2D_h2yge"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 1152, 0, 0, 0, 0, 0, 1152, 649, 0, 0, 0, 0, 0, 648, 0, 0, 0, 0, 12, -5)
+}
+point_count = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mycd"]
+shader = ExtResource("6_7mycd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_272bh"]
+shader = ExtResource("6_7mycd")
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0xm2m")
+mob_scene = ExtResource("2_1bvp3")
+
+[node name="Player" parent="." instance=ExtResource("2_h2yge")]
+speed = null
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(600, 325.335)
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_h2yge")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(36, 0)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_7mycd")
+offset_right = 2201.0
+offset_bottom = 1282.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_1bvp3")
+
+[node name="tilemap" parent="." instance=ExtResource("5_lquwl")]
+visible = false
+z_index = -2
+material = SubResource("ShaderMaterial_272bh")
+
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
