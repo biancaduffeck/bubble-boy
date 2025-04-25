@@ -11,14 +11,10 @@ func _ready() -> void:
 func putEnemiesOnScene():
 	for i in range(5):
 		var mob = mob_scene.instantiate()
-
 		# Choose a random location on Path2D.
 		var mob_spawn_location = $Map
 		mob.position.x=rng.randi_range($Map.position.x, $Map.size.x+$Map.position.x)
 		mob.position.y=rng.randi_range($Map.position.y, $Map.size.y+$Map.position.y)
-		mob.position.x=2000
-		mob.position.y=1000
-		print(mob.position)
 		# Spawn the mob by adding it to the Main scene.
 		add_child(mob)
 
@@ -34,10 +30,6 @@ func new_game():
 	putEnemiesOnScene()
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	print("___________")
-	print($Map.get_position())
-	print($Map.get_size())
-	print("___________")
 
 func whatever():
 	# Create a new instance of the Mob scene.
