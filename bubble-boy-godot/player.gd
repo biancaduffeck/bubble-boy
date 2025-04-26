@@ -7,7 +7,7 @@ var screen_size # Size of the game window.
 func start(pos):
 	position = pos
 	show()
-	$CollisionShape2D.disabled = false
+	#$CollisionShape2D.disabled = false
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,19 +35,19 @@ func _process(delta: float) -> void:
 	#position = position.clamp(Vector2.ZERO, screen_size)
 	
 	#if Input.is_action_just_released("move_right"):
-		#position.y=position.y-int(position.y)%tilemapY
-	
-	
-	
+	#position.y=position.y-int(position.y)%tilemapY
 	if velocity.x != 0:
 		$AnimatedSprite2D.animation = "walk"
 		$AnimatedSprite2D.flip_v = false
 		# See the note below about the following boolean assignment.
 		$AnimatedSprite2D.flip_h = velocity.x < 0
 
-
 func _on_body_entered(body: Node2D) -> void:
-	hide() # Player disappears after being hit.
-	hit.emit()
+	print("colidiu com o player")
+	#hide() # Player disappears after being hit.
+	#hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)
+	#$CollisionShape2D.set_deferred("disabled", true)
+
+func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	print("entrei no shape",body_rid,body,body_shape_index,local_shape_index)

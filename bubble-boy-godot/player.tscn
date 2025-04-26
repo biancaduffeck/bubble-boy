@@ -23,15 +23,16 @@ animations = [{
 radius = 40.0
 height = 100.0
 
-[node name="player" type="Area2D"]
+[node name="player" type="Area2D" groups=["Player"]]
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-27.02, -21.59)
+position = Vector2(-2, 40)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_hqtel")
 animation = &"walk"
+offset = Vector2(-83.4, -205.3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sweqy")

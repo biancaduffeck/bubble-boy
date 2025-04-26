@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dibdsssnuxfnm"]
+
+[ext_resource type="Script" uid="uid://bukbfkh0ps2jj" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dwpor8ysmj7fj" path="res://enemy1.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bnjpgg1an1tg" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bfei5kn4prvxv" path="res://bubble-boy-arts/Chao.jpg" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://c50y1mu3hwsym" path="res://camera_2d.gd" id="4_272bh"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0xm2m")
+mob_scene = ExtResource("2_1bvp3")
+
+[node name="Player" parent="." instance=ExtResource("2_h2yge")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+scale = Vector2(0.6, 0.6)
+limit_left = -1400
+limit_top = -1200
+limit_right = 11600
+limit_bottom = 1900
+limit_smoothed = true
+editor_draw_limits = true
+script = ExtResource("4_272bh")
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(600, 325.335)
+
+[node name="Map" type="TextureRect" parent="."]
+z_index = -1
+offset_right = 2201.0
+offset_bottom = 1282.0
+texture = ExtResource("4_1bvp3")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(2201, 0)
+
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
