@@ -1,5 +1,6 @@
 extends Area2D
 signal hit
+@export var gameAreaColision: CollisionShape2D
 
 @export var speed = 600 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
@@ -32,7 +33,8 @@ func _process(delta: float) -> void:
 	else:
 		$AnimatedSprite2D.stop()
 	position += velocity * delta
-	#position = position.clamp(Vector2.ZERO, screen_size)
+	var gameAreaRect=gameAreaColision.shape.get_rect()
+	position = position.clamp(gameAreaColision.position-gameAreaRect.size/2, gameAreaColision.position+gameAreaRect.size/2)
 	
 	#if Input.is_action_just_released("move_right"):
 	#position.y=position.y-int(position.y)%tilemapY
@@ -49,5 +51,6 @@ func _on_body_entered(body: Node2D) -> void:
 	# Must be deferred as we can't change physics properties on a physics callback.
 	#$CollisionShape2D.set_deferred("disabled", true)
 
-func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	print("entrei no shape",body_rid,body,body_shape_index,local_shape_index)
+
+func _on_area_exited(area: Area2D) -> void:
+	print("eita eita eita pode voltar pra casa")

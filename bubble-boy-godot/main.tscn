@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dibdsssnuxfnm"]
+[gd_scene load_steps=7 format=3 uid="uid://dibdsssnuxfnm"]
 
 [ext_resource type="Script" uid="uid://bukbfkh0ps2jj" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dwpor8ysmj7fj" path="res://enemy1.tscn" id="2_1bvp3"]
@@ -6,11 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://bfei5kn4prvxv" path="res://bubble-boy-arts/Chao.jpg" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://c50y1mu3hwsym" path="res://camera_2d.gd" id="4_272bh"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(2158, 1220.5)
+
 [node name="Main" type="Node"]
 script = ExtResource("1_0xm2m")
 mob_scene = ExtResource("2_1bvp3")
 
-[node name="Player" parent="." instance=ExtResource("2_h2yge")]
+[node name="Player" parent="." node_paths=PackedStringArray("gameAreaColision") instance=ExtResource("2_h2yge")]
+gameAreaColision = NodePath("../AreaGame/CollisionShape2D")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.6, 0.6)
@@ -39,6 +43,13 @@ texture = ExtResource("4_1bvp3")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(2201, 0)
+
+[node name="AreaGame" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaGame"]
+position = Vector2(1096, 634.75)
+shape = SubResource("RectangleShape2D_lquwl")
+debug_color = Color(0.338347, 0.881108, 1, 0.42)
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

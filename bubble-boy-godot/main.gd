@@ -8,9 +8,8 @@ func _ready() -> void:
 	new_game()
 
 func putEnemiesOnScene():
-	for i in range(1):
+	for i in range(10):
 		var mob = mob_scene.instantiate()
-		mob.choseAplace($Map)
 		# Spawn the mob by adding it to the Main scene.
 		add_child(mob)
 

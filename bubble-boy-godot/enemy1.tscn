@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwpor8ysmj7fj"]
+[gd_scene load_steps=5 format=3 uid="uid://dwpor8ysmj7fj"]
 
 [ext_resource type="Texture2D" uid="uid://bwb6ny56mvqds" path="res://bubble-boy-arts/Char B 1.png" id="1_45pq5"]
 [ext_resource type="Script" uid="uid://eepuhameg3s3" path="res://enemy_1.gd" id="1_g51g3"]
-[ext_resource type="Script" uid="uid://cojx17sdx6dkc" path="res://enemy_1g.gd" id="1_pa8dn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g51g3"]
 animations = [{
@@ -18,14 +17,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_pa8dn"]
 radius = 34.0147
 
-[sub_resource type="Curve2D" id="Curve2D_g51g3"]
-_data = {
-"points": PackedVector2Array(-53.9, 0, 53.9, 0, -5, 217, -1.90048, 103.345, 1.90048, -103.345, 103, 6, 68.2, 1.1, -68.2, -1.1, 0, -217, 1.1, -90.2, -1.1, 90.2, -112, 5, -57.2, -2.2, 57.2, 2.2, -5, 217)
-}
-point_count = 5
-
 [node name="EnemyandPath" type="Node2D"]
-script = ExtResource("1_pa8dn")
 metadata/_edit_group_ = true
 
 [node name="Enemy" type="RigidBody2D" parent="."]
@@ -42,9 +34,3 @@ animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_pa8dn")
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_g51g3")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-5, 217)
