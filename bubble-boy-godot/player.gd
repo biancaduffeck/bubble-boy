@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 signal hit
 @export var gameAreaColision: CollisionShape2D
 
@@ -6,7 +6,7 @@ signal hit
 var screen_size # Size of the game window.
 
 func start(pos):
-	position = pos
+	#position = pos
 	show()
 	#$CollisionShape2D.disabled = false
 	
@@ -17,7 +17,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var velocity = Vector2.ZERO # The player's movement vector.
+	velocity = Vector2.ZERO # The player's movement vector.
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
 	if Input.is_action_pressed("move_left"):
@@ -32,9 +32,10 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.play()
 	else:
 		$AnimatedSprite2D.stop()
-	position += velocity * delta
-	var gameAreaRect=gameAreaColision.shape.get_rect()
-	position = position.clamp(gameAreaColision.position-gameAreaRect.size/2, gameAreaColision.position+gameAreaRect.size/2)
+	move_and_slide()
+	#position += velocity * delta
+	#var gameAreaRect=gameAreaColision.shape.get_rect()
+	#position = position.clamp(gameAreaColision.position-gameAreaRect.size/2, gameAreaColision.position+gameAreaRect.size/2)
 	
 	#if Input.is_action_just_released("move_right"):
 	#position.y=position.y-int(position.y)%tilemapY

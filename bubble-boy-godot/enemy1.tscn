@@ -1,10 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwpor8ysmj7fj"]
+[gd_scene load_steps=13 format=3 uid="uid://dwpor8ysmj7fj"]
 
 [ext_resource type="Texture2D" uid="uid://bwb6ny56mvqds" path="res://bubble-boy-arts/Char B 1.png" id="1_45pq5"]
 [ext_resource type="Script" uid="uid://eepuhameg3s3" path="res://enemy_1.gd" id="1_g51g3"]
+[ext_resource type="Texture2D" uid="uid://clhid1sahd540" path="res://bubble-boy-arts/Enemy1/back 1.png" id="2_u1fve"]
+[ext_resource type="Texture2D" uid="uid://d3ec760amsk05" path="res://bubble-boy-arts/Enemy1/back 2.png" id="3_ya3f7"]
+[ext_resource type="Texture2D" uid="uid://cr6jxavsho0d8" path="res://bubble-boy-arts/Enemy1/back 3.png" id="4_gkv6h"]
+[ext_resource type="Texture2D" uid="uid://d15qncbfwcgpm" path="res://bubble-boy-arts/Enemy1/back 4.png" id="5_0mdy6"]
+[ext_resource type="Texture2D" uid="uid://prbjnn7bvj5j" path="res://bubble-boy-arts/Enemy1/front 1.png" id="6_n3e72"]
+[ext_resource type="Texture2D" uid="uid://dqk6o5fnt04h4" path="res://bubble-boy-arts/Enemy1/front 2.png" id="7_s5rup"]
+[ext_resource type="Texture2D" uid="uid://cs57s1yn0k4wo" path="res://bubble-boy-arts/Enemy1/front 3.png" id="8_knpd4"]
+[ext_resource type="Texture2D" uid="uid://cep1ngm7vxc4b" path="res://bubble-boy-arts/Enemy1/front 4.png" id="9_icyhl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g51g3"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u1fve")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ya3f7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gkv6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0mdy6")
+}],
+"loop": true,
+"name": &"backWalk",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_n3e72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_s5rup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_knpd4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_icyhl")
+}],
+"loop": true,
+"name": &"frontWalk",
+"speed": 6.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_45pq5")
@@ -17,20 +59,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_pa8dn"]
 radius = 34.0147
 
-[node name="EnemyandPath" type="Node2D"]
-metadata/_edit_group_ = true
-
-[node name="Enemy" type="RigidBody2D" parent="."]
-mass = 0.001
-gravity_scale = 0.0
+[node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_g51g3")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_g51g3")
-animation = &"walk"
+animation = &"backWalk"
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Enemy"]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pa8dn")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwpor8ysmj7fj"]
+
+[ext_resource type="Texture2D" uid="uid://bwb6ny56mvqds" path="res://bubble-boy-arts/Char B 1.png" id="1_45pq5"]
+[ext_resource type="Script" uid="uid://eepuhameg3s3" path="res://enemy_1.gd" id="1_g51g3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g51g3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_45pq5")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pa8dn"]
+radius = 34.0147
+
+[node name="Enemy" type="RigidBody2D"]
+script = ExtResource("1_g51g3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_g51g3")
+animation = &"walk"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pa8dn")
