@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnjpgg1an1tg"]
+[gd_scene load_steps=7 format=3 uid="uid://bnjpgg1an1tg"]
 
 [ext_resource type="Script" uid="uid://datw3ufe6bdxy" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://bn5hbvvaob0vf" path="res://bubble-boy-arts/char A 1.png" id="2_i3pqv"]
@@ -19,20 +19,53 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(188, 146)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
 radius = 40.0
 height = 100.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+radius = 143.333
+height = 373.333
+
 [node name="player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_onrkg")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, 40)
+position = Vector2(0, -1)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_hqtel")
 animation = &"walk"
-offset = Vector2(-83.4, -205.3)
+offset = Vector2(-90.0667, -68.6333)
+
+[node name="attackArea" type="Area2D" parent="AnimatedSprite2D"]
+scale = Vector2(3.33333, 3.33333)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/attackArea"]
+position = Vector2(1.00001, 2.00001)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_onrkg")
+disabled = true
+
+[node name="ColorRect" type="ColorRect" parent="AnimatedSprite2D/attackArea/CollisionShape2D"]
+z_index = -1
+offset_left = -94.0
+offset_top = -73.0
+offset_right = 94.0
+offset_bottom = 73.0
+color = Color(0.972549, 0.462745, 0.513726, 0.290196)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sweqy")
+
+[node name="hitBox" type="Area2D" parent="."]
+position = Vector2(-2, 40)
+scale = Vector2(0.3, 0.3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
+position = Vector2(6.66667, -133.333)
+shape = SubResource("CapsuleShape2D_onrkg")
+
+[connection signal="area_entered" from="AnimatedSprite2D/attackArea" to="." method="_on_attack_area_area_entered"]

@@ -10,12 +10,16 @@ func _ready() -> void:
 func putEnemiesOnScene():
 	for i in range(10):
 		var mob = mob_scene.instantiate()
+		mob.name="Enemy1_"+str(i)
 		# Spawn the mob by adding it to the Main scene.
 		add_child(mob)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$Player/Camera2D/RichTextLabel.text="vidas:"+str($Player.life)
+	if($Player.life==0):
+		get_tree().paused = true
+		$Player/Camera2D/ColorRect.visible=true
 	
 func game_over():
 	$ScoreTimer.stop()

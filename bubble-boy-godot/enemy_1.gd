@@ -34,7 +34,8 @@ func _process(delta: float) -> void:
 	stateMachineConditions()
 	stateMachine(delta)
 	ArrangeAnimation()
-	
+	if(currentState=="die"):
+		queue_free()
 func ArrangeAnimation():
 	if(velocity.y>0):
 		$AnimatedSprite2D.animation = "frontWalk"
@@ -57,13 +58,12 @@ func stateMachineConditions():
 		currentState="walking"
 		
 	for i in get_slide_collision_count():
-		if(get_slide_collision(i).get_collider().name=="Player"):
-			currentState="bounce"
-			countstate=0
-		else:
-			print(get_slide_collision(i).get_collider().name)
-		if(get_slide_collision(i).get_collider().name=="wall"):
-			print("wall")
+		if(get_slide_collision(i)):
+			if(get_slide_collision(i).get_collider()):
+				if(get_slide_collision(i).get_collider().name=="Player"):
+					currentState="bounce"
+					countstate=0
+		#if(get_slide_collision(i).get_collider().name=="paredes"):
 		
 func stateMachine(delta: float):	
 	if(currentState=="walking"):
@@ -77,7 +77,7 @@ func stateMachine(delta: float):
 		
 	if(currentState=="following"):
 		$AnimatedSprite2D.modulate = Color.RED
-		velocity=(player.global_position-global_position).normalized()*delta*speed*100
+		velocity=(player.global_position-global_position).normalized()*delta*speed*50
 
 	if(currentState=="bounce"):
 		$AnimatedSprite2D.modulate = Color.RED
@@ -87,3 +87,5 @@ func stateMachine(delta: float):
 		if(countstate>.3):
 			currentState="walking"
 	move_and_slide()
+func markToDie():
+	currentState="die"
