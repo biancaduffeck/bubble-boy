@@ -45,7 +45,6 @@ scale = Vector2(3.33333, 3.33333)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/attackArea"]
 position = Vector2(1.00001, 2.00001)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_onrkg")
 disabled = true
 

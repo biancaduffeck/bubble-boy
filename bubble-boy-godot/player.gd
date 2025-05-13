@@ -5,18 +5,16 @@ var countAttack=0
 var isAttacking=false
 var wasHit=false
 var invencibleTime=0
-@export var speed = 600 # How fast the player will move (pixels/sec).
+@export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 var life=6
 var originalModulation
 
 func start(pos):
-	#position = pos
 	show()
 	originalModulation=$AnimatedSprite2D.modulate
-	#$CollisionShape2D.disabled = false
-	
-# Called when the node enters the scene tree for the first time.
+	$AnimatedSprite2D/attackArea.position=Vector2(0,1)*300
+
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	#hide()
